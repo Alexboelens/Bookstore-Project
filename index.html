@@ -1,0 +1,69 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Bookstore</title>
+
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="websitecontainer" id="app">
+
+        <div class="header">
+            <div class="header-content">
+                <img class="logo" src="images/logo2.png" alt="Logo">
+
+                <input maxlength="12" v-model="search" class="search" type="text" placeholder="Enter Your Search Here">
+            </div>
+        </div>
+
+        <div v-if="loader" class="loader">
+            <div class="ball1"></div>
+            <div class="ball2"></div>
+        </div>
+
+        <h2 v-if="loader" class="loading">Loading</h2>
+
+        <div v-if="!loader" class="noResults">
+
+        </div>
+
+        <div v-cloak v-if="!loader" class="content">
+            <div v-for="book in filteredBooks" class="book">
+                <div class="book-inner">
+                    <div class="book-front">
+                        <img class="front-img" alt="Book Cover" v-bind:src="book.cover">
+
+                    </div>
+                    <div class="book-back">
+                        <h2>{{book.title}}</h2>
+                        <p>{{book.description}}</p>
+                        <button class="button" :href="book.detail" data-fancybox="books" :data-caption="book.description"><a>More Info</a></button>
+                    </div>
+                </div>
+            </div>
+
+            <div v-cloak v-if="filteredBooks.length == 0" class="noResults">
+                <img class="book-img" src="images/no_results.png" alt="Flustered Book">
+
+                <h2>No books were found containing {{search}}, please try again.</h2>
+            </div>
+
+
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src='main.js'></script>
+</body>
+
+</html>
